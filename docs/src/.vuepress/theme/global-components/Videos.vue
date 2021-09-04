@@ -4,7 +4,9 @@
       <h2>Meeting Recordings</h2>
       <div class="videos-list">
         <div class="single-video" v-for="video in $frontmatter.videos">
-          <video-embed css="video is-16by9" :src="video.link"></video-embed>
+          <div class="video is-16by9">
+            <iframe width="560" height="315" :src="getEmbedLink(video.link)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
           <h4>{{video.title}}</h4>
         </div>
       </div>
@@ -12,6 +14,16 @@
   </div>
 </template>
 
+<script>
+  export default {
+    methods: {
+      getEmbedLink(link) {
+        link = link.replace('https://www.youtube.com/watch?v=', '')
+        return `https://www.youtube.com/embed/${link}`
+      }
+    }
+  }
+</script>
 
 <style lang="scss">
 .videos-wrapper {
